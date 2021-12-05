@@ -7,10 +7,27 @@ synopsis: Advent of Code 2021 Solutions
 author:             Mitchell Horning
 maintainer:         mitchell@horning.email
 
-executable aoc2021
-    main-is:          Main.hs
+library
+  hs-source-dirs:
+    src
+  build-depends:    base ^>=4.15.0.0,
+                    hspec,
+                    text >= 1.2.4.1
+  exposed-modules:
+    Day01
+  default-language: Haskell2010
 
-    build-depends:    base ^>=4.15.0.0,
-                      hspec,
-    hs-source-dirs:   app
-    default-language: Haskell2010
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      src  
+    , test
+  ghc-options: -Wall
+  build-depends:
+                    base ==4.*
+                , hspec ==2.*
+                , text >= 1.2.4.1
+  default-language: Haskell2010
+  build-tool-depends: hspec-discover:hspec-discover == 2.*
+     

@@ -55,9 +55,5 @@ co2ScrubberRating = diagnosticFilter co2ScrubberCriterion
 lifeSupportRating :: [BinNum] -> Int
 lifeSupportRating bs = oxygenGeneratorRating bs * co2ScrubberRating bs
 
-main :: IO ()
-main = do
-  contents <- readFile "inputs/03_01"
-  print . powerConsumption . map toBinNum . lines $ contents
-  excontents <- readFile "inputs/03_01"
-  print . lifeSupportRating . map toBinNum . lines $ excontents
+parseReadings :: String -> [BinNum]
+parseReadings = map toBinNum . lines

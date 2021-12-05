@@ -1,4 +1,4 @@
-module Day02 where
+module Day02_02 where
 
 type Depth = Integer
 type Forward = Integer
@@ -32,9 +32,5 @@ readRutter = map readPosition . lines
 followRutter :: Rutter -> Position
 followRutter = foldl addPositions (Position (Coordinate 0 0) 0)
 
-ex1 = "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2"
-
-main :: IO ()
-main = do
-  contents <- readFile "inputs/02_1"
-  print (positionProduct $ followRutter (readRutter contents))
+rutterProduct :: Rutter -> Integer
+rutterProduct = positionProduct . followRutter

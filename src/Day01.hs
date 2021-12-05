@@ -1,6 +1,4 @@
-module Main where
-
-import Test.Hspec
+module Day01 where
 
 count :: (a -> Bool) -> [a] -> Int
 count f = length . filter f
@@ -14,17 +12,8 @@ countLargerThanPrevious = increasingSubseqSums 1
 countIncreasingTriples :: Ord a => [a] -> Int
 countIncreasingTriples = increasingSubseqSums 3
 
-test :: IO ()
-test = hspec $ do
-  describe "AoC day 1" $ do
-    it "First example is correct" $ do
-      countLargerThanPrevious exampleReport `shouldBe` (7 :: Int)
-    it "Second example is correct" $ do
-      countIncreasingTriples exampleReport2 `shouldBe` (5 :: Int)
-    where exampleReport = [199, 200, 208, 210, 200,
-                           207, 240, 269, 260, 263] :: [Int]
-          exampleReport2 = [607, 618, 618, 617, 647, 716, 769, 792] :: [Int]
-
+parseReport :: String -> [Int]
+parseReport = map read . words
 
 main :: IO ()
 main = do

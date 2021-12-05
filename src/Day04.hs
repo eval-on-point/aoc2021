@@ -28,7 +28,7 @@ roundWinnerScore :: DrawnNumbers -> BingoHall -> Maybe Int
 roundWinnerScore drawn board = maximum . map (maybe Nothing (score drawn)) $ board
 
 -- winners :: DrawnNumbers -> BingoHall -> [Maybe BingoBoard]
-winner drawn hall = snd $ mapAccumL (\a b -> (b:a, roundWinnerScore a hall)) [] drawn
+winner drawn hall = head $ filter isJust $ snd $ mapAccumL (\a b -> (b:a, roundWinnerScore a hall)) [] drawn
 
 winnerSquid drawn hall = last $ filter isJust $ snd $ mapAccumL (\(a, c) b -> let roundwinner = roundWinner (b:a) (hall \\ c)
                                                  in ((b:a, roundWinners (b:a) (hall \\ c) ++ c), (maybe Nothing (score (b:a))) roundwinner))
@@ -39,6 +39,10 @@ toDrawn s = map (read . T.unpack) $ T.splitOn (T.pack ",") s
 
 toBoard :: T.Text -> BingoBoard
 toBoard s = map (map read . words) $ lines $ T.unpack s
+
+parseInputFile :: String -> (DrawnNumbers, BingoHall)
+parseInputFile s = (toDrawn $ head paragraphs, map (Just . toBoard) $ tail paragraphs)
+  where paragraphs = T.splitOn (T.pack "\n\n") $ T.pack s
 
 main :: IO ()
 main = do

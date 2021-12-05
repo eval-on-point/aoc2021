@@ -26,9 +26,5 @@ readRutter = map readDirection . lines
 followRutter :: Rutter -> Coordinate
 followRutter = foldl addCoords (Coordinate 0 0)
 
-  ex1 = "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2"
-
-main :: IO ()
-main = do
-  contents <- readFile "inputs/02_1"
-  print (coordProduct . followRutter $ readRutter contents)
+rutterProduct :: Rutter -> Integer
+rutterProduct = coordProduct . followRutter
