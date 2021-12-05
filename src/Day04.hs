@@ -43,11 +43,3 @@ toBoard s = map (map read . words) $ lines $ T.unpack s
 parseInputFile :: String -> (DrawnNumbers, BingoHall)
 parseInputFile s = (toDrawn $ head paragraphs, map (Just . toBoard) $ tail paragraphs)
   where paragraphs = T.splitOn (T.pack "\n\n") $ T.pack s
-
-main :: IO ()
-main = do
-  contents <- readFile "inputs/04_01"
-  let l = T.splitOn (T.pack "\n\n") $ T.pack contents
-      d = toDrawn $ head l
-      b = map (Just . toBoard) $ tail l
-  print $ winnerSquid d b
